@@ -18,6 +18,10 @@ class CalcController {
         })
         
     }
+
+    get displayValue() {
+        return this.displayEl.textContent
+    }
     
     set displayValue(value) {
         return this.displayEl.textContent = value
@@ -85,12 +89,24 @@ class CalcController {
     }
 
     addCharacters(value) {
-        if(typeof value === 'number') {
-            this.operation.push(value)
-            this.displayEl = this.operation
+        if(typeof value === 'number' && this.operation.length === 0) {
+            this.operation.push(value)            
+            this.displayValue = this.operation
+            
+            
+        }else if(typeof value === 'number' && this.operation.length === 1) {
+            this.operation[0].toString() + String(value)
         }
 
+    }
 
+    lastCharacter() {
+        return this.operation[this.operation.length]
+        
+    }
+
+    isOperator(value) {
+        return (['+', '-', '*', '/', '%'].some( item => (item === value)))
     }
 
     clearCurrentDisplay() {}
